@@ -80,58 +80,66 @@ class Home extends StatelessWidget {
             }),
             SizedBox(height: 20),
             // Make a button with a text label.
-            GetBuilder<HomeController>(
-              builder: (controller) {
-                return ElevatedButton(
-                  onPressed: () async {
-                    await homeController.wheelDurationChange(5);
-                    homeController.addFortune();
-                    await Future.delayed(Duration(seconds: 5));
-                    Get.dialog(Dialog(
-                      child: Container(
-                        height: 350,
-                        child: Column(
-                          children: [
-                            Text(
-                                '추천 식당: ${homeController.selectedItems[homeController.temp].name}'),
-                            Text(
-                                '회사로부터 거리: ${homeController.selectedItems[homeController.temp].distance}m'),
-                            Image(
-                              width: 250,
-                              height: 250,
-                              image: AssetImage(
-                                'assets/images/${homeController.selectedItems[homeController.temp].image}',
-                              ),
-                            ),
-                            Expanded(child: Container()),
-                            ElevatedButton(
+            GetBuilder<HomeController>(builder: (controller) {
+              return ElevatedButton(
 
-                              onPressed: () {
-                                Get.back();
-                              },
-                              child: Text('확인'),
-                            )
-                          ],
-                        ),
-                      ),
-                    ));
-                  },
-                  child: Text( homeController.selectedItems.length >1?'원판돌리기':'원판이 비었어요'),
+                onPressed: () async {
+                  homeController.isButtonPressed == true?
+                  null :
+                      buttonPressed();
 
-                  style: ElevatedButton.styleFrom(
-
-                    primary: homeController.selectedItems.length >1?Colors.lightBlueAccent:Colors.grey,
-                    onPrimary: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
+                },
+                child: Text(homeController.selectedItems.length > 1
+                    ? '원판돌리기'
+                    : '원판이 비었어요'),
+                style: ElevatedButton.styleFrom(
+                  primary: homeController.selectedItems.length > 1
+                      ? Colors.lightBlueAccent
+                      : Colors.grey,
+                  onPrimary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                );
-              }
-            ),
+                ),
+              );
+            }),
           ],
         ),
       ),
     );
+  }
+  buttonPressed() async{
+    homeController.buttonSwitch();
+    await homeController.wheelDurationChange(5);
+    homeController.addFortune();
+    await Future.delayed(Duration(seconds: 5));
+    homeController.buttonSwitch();
+    Get.dialog(Dialog(
+      child: Container(
+        height: 350,
+        child: Column(
+          children: [
+            Text(
+                '추천 식당: ${homeController.selectedItems[homeController.temp].name}'),
+            Text(
+                '회사로부터 거리: ${homeController.selectedItems[homeController.temp].distance}m'),
+            Image(
+              width: 250,
+              height: 250,
+              image: AssetImage(
+                'assets/images/${homeController.selectedItems[homeController.temp].image}',
+              ),
+            ),
+            Expanded(child: Container()),
+            ElevatedButton(
+              onPressed: () {
+                Get.back();
+              },
+              child: Text('확인'),
+            )
+          ],
+        ),
+      ),
+    ));
   }
 }
