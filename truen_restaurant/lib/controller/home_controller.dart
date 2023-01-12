@@ -17,23 +17,23 @@ class HomeController extends GetxController {
   bool isButtonPressed = false;
   RxBool isReady = false.obs;
   int firstIndex = 0;
-  int secondIndex= 1;
+  int secondIndex = 1;
   bool quarterFinish = false;
   bool semiFinalFinish = false;
   int winnerIndex = 0;
-
+  RxBool isStart = false.obs;
   var prefs;
-
-  // generate list with random numbers
   List<int> randomList = List.generate(8, (index) => index + 1);
-
-  List<int> semiFinals =[];
+  List<int> semiFinals = [];
   List<int> finals = [];
 
   int wheelDuration = 5;
   bool isSaved = false;
 
+  @override
   onInit() async {
+    await Future.delayed(const Duration(seconds: 2));
+    isStart.value = true;
     isReady.value = false;
     randomList.shuffle(Random());
     prefs = await SharedPreferences.getInstance();
@@ -44,67 +44,68 @@ class HomeController extends GetxController {
         selectedItems.add(restItems[i]);
       }
     }
-    await Future.delayed(Duration(seconds: 2), () {
+    await Future.delayed(const Duration(seconds: 2), () {
       isReady.value = true;
     });
   }
-  topTappedQuarter(){
+
+  topTappedQuarter() {
     semiFinals.add(randomList[firstIndex]);
-    if (firstIndex<5) {
-
-      firstIndex=firstIndex+2;
-      secondIndex=secondIndex+2;
-    }
-
-    else{
-      quarterFinish=true;
+    if (firstIndex < 5) {
+      firstIndex = firstIndex + 2;
+      secondIndex = secondIndex + 2;
+    } else {
+      quarterFinish = true;
       firstIndex = 0;
-      secondIndex= 1;
+      secondIndex = 1;
     }
     update();
-
   }
-  bottomTappedQuarter(){
+
+  bottomTappedQuarter() {
     semiFinals.add(randomList[secondIndex]);
-    if (firstIndex<5) {
-      firstIndex=firstIndex+2;
-      secondIndex=secondIndex+2;
-    }
-    else{
-      quarterFinish=true;
+    if (firstIndex < 5) {
+      firstIndex = firstIndex + 2;
+      secondIndex = secondIndex + 2;
+    } else {
+      quarterFinish = true;
       firstIndex = 0;
-      secondIndex= 1;
+      secondIndex = 1;
     }
     update();
-
   }
-  topTappedSemi(){
+
+  topTappedSemi() {
     finals.add(semiFinals[firstIndex]);
-    if (firstIndex<1) {
-      firstIndex=firstIndex+2;
-      secondIndex=secondIndex+2;
-    }
-    else{
-      semiFinalFinish=true;
+    if (firstIndex < 1) {
+      firstIndex = firstIndex + 2;
+      secondIndex = secondIndex + 2;
+    } else {
+      firstIndex = 0;
+      secondIndex = 1;
+      semiFinalFinish = true;
     }
     update();
   }
-  bottomTappedSemi(){
-    finals.add(semiFinals[secondIndex]);
-    if (firstIndex<1) {
-      firstIndex=firstIndex+2;
-      secondIndex=secondIndex+2;
-    }
-    else{
-      semiFinalFinish=true;
-    }
-    update();
 
+  bottomTappedSemi() {
+    finals.add(semiFinals[secondIndex]);
+    if (firstIndex < 1) {
+      firstIndex = firstIndex + 2;
+      secondIndex = secondIndex + 2;
+    } else {
+      firstIndex = 0;
+      secondIndex = 1;
+      semiFinalFinish = true;
+    }
+    update();
   }
+
   topTappedFinals() {
     winnerIndex = 0;
     update();
   }
+
   bottomTappedFinals() {
     winnerIndex = 1;
     update();

@@ -12,44 +12,51 @@ class SemiFinal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('준결승'),
+        centerTitle: true,
+        leading: null,
+        automaticallyImplyLeading: false,
+      ),
       body: Center(
-        child: GetBuilder<HomeController>(
-            builder: (context) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Two images in the column
-
-                  InkWell(
-                    child: Image.asset(
-                      'assets/images/${homeController.semiFinals[homeController.firstIndex]}.jpg',
-                      fit: BoxFit.cover,
-                      width: 300,
+        child: GetBuilder<HomeController>(builder: (context) {
+          return homeController.semiFinalFinish == false
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Two images in the column
+                    Text('${homeController.restItems[homeController.semiFinals[homeController.firstIndex]-1].name}'),
+                    InkWell(
+                      child: Image.asset(
+                        'assets/images/${homeController.semiFinals[homeController.firstIndex]}.jpg',
+                        fit: BoxFit.cover,
+                        width: 300,
+                      ),
+                      onTap: () {
+                        print(homeController.semiFinals);
+                        homeController.topTappedSemi();
+                      },
                     ),
-                    onTap: () {
-                      print(homeController.semiFinals);
-                      homeController.topTappedSemi();
-                    },
-                  ),
-                  InkWell(
-                    child: Image.asset(
-                      'assets/images/${homeController.semiFinals[homeController.secondIndex]}.jpg',
-                      fit: BoxFit.cover,
-                      width: 300,
-                    ),
-                    onTap: () {
-                      homeController.bottomTappedSemi();
-                    },
-                  ),
-                  homeController.semiFinalFinish == true?
-                  ElevatedButton(onPressed: (){},
-                      child: Text('다음 라운드')):
-                  SizedBox.shrink(),
+                    Text('${homeController.restItems[homeController.semiFinals[homeController.secondIndex]-1].name}'),
 
-                ],
-              );
-            }
-        ),
+                    InkWell(
+                      child: Image.asset(
+                        'assets/images/${homeController.semiFinals[homeController.secondIndex]}.jpg',
+                        fit: BoxFit.cover,
+                        width: 300,
+                      ),
+                      onTap: () {
+                        homeController.bottomTappedSemi();
+                      },
+                    ),
+                  ],
+                )
+              : ElevatedButton(
+                  onPressed: () {
+                    Get.toNamed('/finals');
+                  },
+                  child: Text('다음 라운드'));
+        }),
       ),
     );
   }

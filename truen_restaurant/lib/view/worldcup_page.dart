@@ -10,13 +10,21 @@ class WorldCup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('8강'),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+      ),
       body: Center(
         child: GetBuilder<HomeController>(
           builder: (context) {
-            return Column(
+            return
+              homeController.quarterFinish == false?
+              Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                // Two images in the column
+                Text('${homeController.restItems[homeController.randomList[homeController.firstIndex]-1].name}'),
 
                 InkWell(
                   child: Image.asset(
@@ -29,6 +37,8 @@ class WorldCup extends StatelessWidget {
                     homeController.topTappedQuarter();
                   },
                 ),
+                Text('${homeController.restItems[homeController.randomList[homeController.secondIndex]-1].name}'),
+
                 InkWell(
                   child: Image.asset(
                     'assets/images/${homeController.randomList[homeController.secondIndex]}.jpg',
@@ -39,15 +49,14 @@ class WorldCup extends StatelessWidget {
                     homeController.bottomTappedQuarter();
                   },
                 ),
-                homeController.quarterFinish == true?
-                    ElevatedButton(onPressed: (){
-                      Get.toNamed('/semi');
-                    },
-                        child: Text('다음 라운드')):
-                    SizedBox.shrink(),
+
 
               ],
-            );
+            ):
+              ElevatedButton(onPressed: (){
+                Get.toNamed('/semi');
+              },
+                  child: Text('다음 라운드'));
           }
         ),
       ),

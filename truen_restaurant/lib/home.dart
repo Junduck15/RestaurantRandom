@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Drawer(
+      endDrawer: Drawer(
         child: ListView(
           children: <Widget>[
             ListTile(
@@ -31,7 +31,13 @@ class Home extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-        title: Text('식당 랜덤 추천'),
+        title: const Text('식당 랜덤 추천'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.back();
+          },
+        ),
       ),
       body: Center(
         child: Column(
@@ -72,7 +78,8 @@ class Home extends StatelessWidget {
                       child: Center(
                           child: Padding(
                         padding: const EdgeInsets.all(26.0),
-                        child: Text('원판에 추가 할 메뉴를 좌측 옵션을 통해 2개 이상의 메뉴를 고르세요',
+                        child: const Text(
+                            '원판에 추가 할 메뉴를 우측 옵션을 통해 2개 이상의 메뉴를 고르세요',
                             style: TextStyle(color: Colors.white, fontSize: 20),
                             textAlign: TextAlign.center),
                       )));
@@ -134,7 +141,7 @@ class Home extends StatelessWidget {
               onPressed: () {
                 Get.back();
               },
-              child: Text('확인'),
+              child: const Text('확인'),
             )
           ],
         ),

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controller/home_controller.dart';
+
 class SelectMode extends StatelessWidget {
+  final homeController = Get.find<HomeController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,16 +30,17 @@ class SelectMode extends StatelessWidget {
               child: Container(
                 width: 300,
                 height: 90,
-
-                padding: EdgeInsets.only(left:30, right: 30),
+                padding: EdgeInsets.only(left: 30, right: 30),
                 child: Row(
                   children: [
-                      Image.asset(
+                    Image.asset(
                       'assets/images/wheel.png',
                       fit: BoxFit.cover,
                       width: 50,
                     ),
-                    const SizedBox(width: 50,),
+                    const SizedBox(
+                      width: 50,
+                    ),
                     const Text('원판 돌리기'),
                   ],
                 ),
@@ -56,7 +61,7 @@ class SelectMode extends StatelessWidget {
               child: Container(
                 width: 300,
                 height: 80,
-                padding: EdgeInsets.only(left:30, right: 30),
+                padding: EdgeInsets.only(left: 30, right: 30),
                 child: Row(
                   children: [
                     Image.asset(
@@ -64,7 +69,9 @@ class SelectMode extends StatelessWidget {
                       fit: BoxFit.cover,
                       width: 50,
                     ),
-                    const SizedBox(width: 50,),
+                    const SizedBox(
+                      width: 50,
+                    ),
                     const Text('메뉴 월드컵'),
                   ],
                 ),

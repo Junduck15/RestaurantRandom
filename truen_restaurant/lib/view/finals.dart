@@ -12,6 +12,11 @@ class Finals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('결승'),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+      ),
       body: Center(
         child: GetBuilder<HomeController>(
             builder: (context) {
@@ -19,6 +24,7 @@ class Finals extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Two images in the column
+                  Text('${homeController.restItems[homeController.finals[homeController.firstIndex]-1].name}'),
 
                   InkWell(
                     child: Image.asset(
@@ -31,6 +37,8 @@ class Finals extends StatelessWidget {
                       Get.toNamed('/winner');
                     },
                   ),
+                  Text('${homeController.restItems[homeController.finals[homeController.secondIndex]-1].name}'),
+
                   InkWell(
                     child: Image.asset(
                       'assets/images/${homeController.finals[homeController.secondIndex]}.jpg',
@@ -42,10 +50,6 @@ class Finals extends StatelessWidget {
                       Get.toNamed('/winner');
                     },
                   ),
-                  homeController.semiFinalFinish == true?
-                  ElevatedButton(onPressed: (){},
-                      child: Text('다음 라운드')):
-                  SizedBox.shrink(),
 
                 ],
               );
