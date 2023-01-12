@@ -82,16 +82,11 @@ class Home extends StatelessWidget {
             // Make a button with a text label.
             GetBuilder<HomeController>(builder: (controller) {
               return ElevatedButton(
-
                 onPressed: () async {
-                  homeController.isButtonPressed == true?
-                  null :
-                      buttonPressed();
-
+                  homeController.isButtonPressed == true
+                      ? null
+                      : buttonPressed();
                 },
-                child: Text(homeController.selectedItems.length > 1
-                    ? '원판돌리기'
-                    : '원판이 비었어요'),
                 style: ElevatedButton.styleFrom(
                   primary: homeController.selectedItems.length > 1
                       ? Colors.lightBlueAccent
@@ -101,6 +96,9 @@ class Home extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
+                child: Text(homeController.selectedItems.length > 1
+                    ? '원판돌리기'
+                    : '원판이 비었어요'),
               );
             }),
           ],
@@ -108,7 +106,8 @@ class Home extends StatelessWidget {
       ),
     );
   }
-  buttonPressed() async{
+
+  buttonPressed() async {
     homeController.buttonSwitch();
     await homeController.wheelDurationChange(5);
     homeController.addFortune();

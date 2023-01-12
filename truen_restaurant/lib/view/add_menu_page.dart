@@ -23,7 +23,6 @@ class Add extends StatelessWidget {
                 title: '저장하지 않았습니다.',
                 middleText: '저장하지 않고 나가시겠습니까?',
                 textConfirm: '확인',
-                textCancel: '취소',
                 confirmTextColor: Colors.white,
                 cancelTextColor: Colors.blue,
                 buttonColor: Colors.blue,
@@ -33,9 +32,7 @@ class Add extends StatelessWidget {
                   homeController.wheelDurationChange(5);
                   Get.back();
                 },
-                onCancel: () {
-                  Get.back();
-                },
+
               );
             }
           },

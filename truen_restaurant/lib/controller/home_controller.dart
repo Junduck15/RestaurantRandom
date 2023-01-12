@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
+import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:truen_restaurant/model/restaurant_model.dart';
@@ -15,13 +16,26 @@ class HomeController extends GetxController {
   final List<RestaurantModel> selectedItems = [];
   bool isButtonPressed = false;
   RxBool isReady = false.obs;
+  int firstIndex = 0;
+  int secondIndex= 1;
+  bool quarterFinish = false;
+  bool semiFinalFinish = false;
+  int winnerIndex = 0;
+
   var prefs;
+
+  // generate list with random numbers
+  List<int> randomList = List.generate(8, (index) => index + 1);
+
+  List<int> semiFinals =[];
+  List<int> finals = [];
 
   int wheelDuration = 5;
   bool isSaved = false;
 
   onInit() async {
     isReady.value = false;
+    randomList.shuffle(Random());
     prefs = await SharedPreferences.getInstance();
     await readFromPref();
     super.onInit();
@@ -33,6 +47,67 @@ class HomeController extends GetxController {
     await Future.delayed(Duration(seconds: 2), () {
       isReady.value = true;
     });
+  }
+  topTappedQuarter(){
+    semiFinals.add(randomList[firstIndex]);
+    if (firstIndex<5) {
+
+      firstIndex=firstIndex+2;
+      secondIndex=secondIndex+2;
+    }
+
+    else{
+      quarterFinish=true;
+      firstIndex = 0;
+      secondIndex= 1;
+    }
+    update();
+
+  }
+  bottomTappedQuarter(){
+    semiFinals.add(randomList[secondIndex]);
+    if (firstIndex<5) {
+      firstIndex=firstIndex+2;
+      secondIndex=secondIndex+2;
+    }
+    else{
+      quarterFinish=true;
+      firstIndex = 0;
+      secondIndex= 1;
+    }
+    update();
+
+  }
+  topTappedSemi(){
+    finals.add(semiFinals[firstIndex]);
+    if (firstIndex<1) {
+      firstIndex=firstIndex+2;
+      secondIndex=secondIndex+2;
+    }
+    else{
+      semiFinalFinish=true;
+    }
+    update();
+  }
+  bottomTappedSemi(){
+    finals.add(semiFinals[secondIndex]);
+    if (firstIndex<1) {
+      firstIndex=firstIndex+2;
+      secondIndex=secondIndex+2;
+    }
+    else{
+      semiFinalFinish=true;
+    }
+    update();
+
+  }
+  topTappedFinals() {
+    winnerIndex = 0;
+    update();
+  }
+  bottomTappedFinals() {
+    winnerIndex = 1;
+    update();
   }
 
   readFromPref() async {
@@ -96,7 +171,7 @@ class HomeController extends GetxController {
 
   editRestItem(value, index) {
     restItems[index].isChecked = value;
-
+    isSaved = false;
     update();
   }
 
