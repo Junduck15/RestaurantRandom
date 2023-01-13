@@ -41,6 +41,12 @@ class Add extends StatelessWidget {
         actions: [
           GetBuilder<HomeController>(builder: (controller) {
             return ElevatedButton(
+              style: ElevatedButton.styleFrom(
+
+                primary:  Get.isDarkMode ? Colors.black12 : Colors.blue,
+                onPrimary: Colors.white,
+                side: BorderSide(color: Colors.transparent),
+              ),
               onPressed: () {
                 homeController.selectAll();
               },
@@ -49,6 +55,12 @@ class Add extends StatelessWidget {
           }),
           GetBuilder<HomeController>(builder: (controller) {
             return ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary:  Get.isDarkMode ? Colors.black12 : Colors.blue,
+                onPrimary: Colors.white,
+                side: BorderSide(color: Colors.transparent),
+
+              ),
               onPressed: () async {
                 homeController.isSaved = true;
                 homeController.saveRestItem();

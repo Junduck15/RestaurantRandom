@@ -10,7 +10,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../repository/restaurant_repository.dart';
 
 class HomeController extends GetxController {
-  StreamController<int> selected = StreamController<int>();
   int temp = 0;
   final List<RestaurantModel> restItems = RestaurantRepository().restaurantList;
   final List<RestaurantModel> selectedItems = [];
@@ -29,10 +28,10 @@ class HomeController extends GetxController {
 
   int wheelDuration = 5;
   bool isSaved = false;
-
+  StreamController<int> selected = StreamController<int>.broadcast();
   @override
   onInit() async {
-    await Future.delayed(const Duration(seconds: 2));
+
     isStart.value = true;
     isReady.value = false;
     randomList.shuffle(Random());

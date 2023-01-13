@@ -24,7 +24,7 @@ class Winner extends StatelessWidget {
               ),
               Text(
                   '${homeController.restItems[homeController.finals[homeController.winnerIndex] - 1].name}까지의 거리 : '
-                  ' ${homeController.restItems[homeController.finals[homeController.winnerIndex] - 1].distance}m.'),
+                  ' ${homeController.restItems[homeController.finals[homeController.winnerIndex] - 1].distance}m.', style: TextStyle(fontSize: 25)),
               Image.asset(
                 'assets/images/${homeController.finals[homeController.winnerIndex]}.jpg',
                 fit: BoxFit.cover,

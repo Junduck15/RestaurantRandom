@@ -24,7 +24,7 @@ class WorldCup extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                // Two images in the column
-                Text('${homeController.restItems[homeController.randomList[homeController.firstIndex]-1].name}'),
+                Text('${homeController.restItems[homeController.randomList[homeController.firstIndex]-1].name}', style: TextStyle(fontSize: 25),),
 
                 InkWell(
                   child: Image.asset(
@@ -37,7 +37,7 @@ class WorldCup extends StatelessWidget {
                     homeController.topTappedQuarter();
                   },
                 ),
-                Text('${homeController.restItems[homeController.randomList[homeController.secondIndex]-1].name}'),
+                Text('${homeController.restItems[homeController.randomList[homeController.secondIndex]-1].name}', style: TextStyle(fontSize: 25)),
 
                 InkWell(
                   child: Image.asset(

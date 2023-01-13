@@ -15,7 +15,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Get.isDarkMode? Colors.black12 : Colors.white,
       endDrawer: Drawer(
         child: ListView(
           children: <Widget>[
@@ -48,7 +48,6 @@ class Home extends StatelessWidget {
                   ? Container(
                       width: 350,
                       height: 350,
-                      color: Colors.white,
                       child: Stack(children: [
                         FortuneWheel(
                           duration:

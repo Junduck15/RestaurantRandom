@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      darkTheme: ThemeData.dark().copyWith(primaryColor: Colors.red),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     );
