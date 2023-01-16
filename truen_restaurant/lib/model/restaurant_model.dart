@@ -4,7 +4,8 @@ class RestaurantModel {
   int? distance;
   bool? isChecked = false;
   String? image = "1";
-  RestaurantModel(name, description, distance, image) {
+  int? count = 0;
+  RestaurantModel(name, description, distance, image, ) {
     this.name = name;
     this.description = description;
     this.distance = distance;

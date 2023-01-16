@@ -16,8 +16,7 @@ class SelectMode extends StatelessWidget {
         actions: [
           GetBuilder<ThemeController>(builder: (controller) {
             return IconButton(
-              icon: Icon(
-                  Get.isDarkMode? Icons.dark_mode: Icons.light_mode),
+              icon: Icon(Get.isDarkMode ? Icons.dark_mode : Icons.light_mode),
               onPressed: () {
                 themeController.changeTheme();
               },
@@ -25,79 +24,100 @@ class SelectMode extends StatelessWidget {
           }),
         ],
       ),
-
-      body: GetBuilder<ThemeController>(
-        builder: (controller) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue,
-                    onPrimary: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32.0),
+      body: GetBuilder<ThemeController>(builder: (controller) {
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Stack(
+                children: [
+                  Image.asset(
+                    Get.isDarkMode
+                        ? 'assets/images/vs2.png'
+                        : 'assets/images/vsDark.png',
+                    width: 350,
+                  ),
+                  Positioned(
+                    left: 40,
+                    top: 40,
+                    child: Text("원판 돌리기",
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold)),
+                  ),
+                  Positioned(
+                    left: 40,
+                    top: 100,
+                    child: Text("랜덤으로 메뉴 정하기", style: TextStyle(fontSize: 12)),
+                  ),
+                  Positioned(
+                    top: 170,
+                    left: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue,
+                        onPrimary: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0),
+                        ),
+                      ),
+                      onPressed: () {
+                        Get.toNamed('/root');
+                      },
+                      child: Container(
+                        width: 100,
+                        height: 50,
+                        child: Center(child: const Text('시작하기')),
+                      ),
                     ),
                   ),
-                  onPressed: () {
-                    Get.toNamed('/root');
-                  },
-                  child: Container(
-                    width: 300,
-                    height: 90,
-                    padding: EdgeInsets.only(left: 30, right: 30),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/images/wheel.png',
-                          fit: BoxFit.cover,
-                          width: 50,
+                ],
+              ),
+              SizedBox(height: 50),
+              Stack(
+                children: [
+                  Image.asset(
+                    Get.isDarkMode
+                        ? 'assets/images/wheel2.png'
+                        : 'assets/images/wheelDark.png',
+                    width: 350,
+                  ),
+                  const Positioned(
+                    left: 40,
+                    top: 40,
+                    child: Text("메뉴 월드컵",
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold)),
+                  ),
+                  const Positioned(
+                    left: 40,
+                    top: 100,
+                    child: Text("임의로 메뉴 정하기", style: TextStyle(fontSize: 12)),
+                  ),
+                  Positioned(
+                    top: 170,
+                    left: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0),
                         ),
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        const Text('원판 돌리기'),
-                      ],
+                      ),
+                      onPressed: () {
+                        Get.toNamed('/select');
+                      },
+                      child: Container(
+                        width: 100,
+                        height: 50,
+                        child: Center(child: const Text('시작하기')),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 100),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32.0),
-                    ),
-                  ),
-                  onPressed: () {
-                    Get.toNamed('/select');
-                  },
-                  child: Container(
-                    width: 300,
-                    height: 80,
-                    padding: EdgeInsets.only(left: 30, right: 30),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/images/versus.png',
-                          fit: BoxFit.cover,
-                          width: 50,
-                        ),
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        const Text('메뉴 월드컵'),
-                      ],
-                    ),
-                  ),
-                ),
-
-              ],
-            ),
-          );
-        }
-      ),
+                ],
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }
